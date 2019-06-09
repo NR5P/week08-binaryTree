@@ -1,6 +1,8 @@
 #ifndef BNODE_H
 #define BNODE_H
 
+#include <iostream>
+
 template<typename T>
 struct BNode {
     T data;
@@ -50,5 +52,35 @@ template<typename T>
 void addRight(BNode<T> *pNode, BNode<T> *pToAdd) {
 
 }
+
+/*
+Takes a BNode as a parameter makes a copy of the tree. The return value is the 
+newly copied tree. This is a recursive function.
+*/
+template<typename T>
+BNode<T>* copyBTree(BNode<T> *pHead) {
+
+}
+
+/*
+Takes a BNode as a parameter and deletes all the children and itself. 
+This is a recursive function.
+*/
+template<typename T>
+void deleteBTree(BNode<T> *pHead) {
+
+}
+
+/*
+Takes a constant BNode * as a parameter and displays the tree under 
+the passed parameter. This is a recursive function traversing the tree in LVR order. 
+A single space will be displayed after every element.
+*/
+template<typename T>
+std::ostream &operator<<(std::ostream &out, BNode<T> *t) {
+
+}
+
+
 
 #endif
