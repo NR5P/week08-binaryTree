@@ -9,7 +9,7 @@ struct BNode {
     BNode *pLeft;
     BNode *pRight;
     BNode *pParent;
-    BNode() : pLeft(nullptr), pRight(nullptr), pParent(nullptr) {} 
+    BNode() : data(0), pLeft(nullptr), pRight(nullptr), pParent(nullptr) {} 
     BNode(T &t) : data(t), pLeft(nullptr), pRight(nullptr), pParent(nullptr) {} 
 };
 
@@ -20,7 +20,17 @@ and pParent of the new node will point to the current node.
 */
 template<typename T>
 void addLeft(const T &t, BNode<T> *pNode) {
+    // create a new node to add
+    BNode<T> *newNode = new (nothrow) BNode<T>(t);
 
+    if (newNode == nullptr) 
+        throw "ERROR: unable to allocate";
+
+    // put to left of the pnode
+    pNode->pLeft = newNode;
+
+    // give the node a parent
+    newNode->pParent = pNode;
 }
 
 /*
@@ -29,8 +39,9 @@ the passed node will be used. pLeft of the current node will point to the new no
 and pParent of the new node will point to the current node. 
 */
 template<typename T>
-void addLeft(BNode<T> *pNode, BNode<T> *pToAdd) {
-
+void addLeft(BNode<T> *pNode, BNode<T> *pAdd) {
+    pNode->pLeft = pAdd;
+    pAdd->pParent = pNode;
 }
 
 /*
@@ -40,7 +51,17 @@ and pParent of the new node will point to the current node.
 */
 template<typename T>
 void addRight(const T &t, BNode<T> *pNode) {
+    // create a new node to add
+    BNode<T> *newNode = new (nothrow) BNode<T>(t);
 
+    if (newNode == nullptr) 
+        throw "ERROR: unable to allocate";
+
+    // put to left of the pnode
+    pNode->pRight = newNode;
+
+    // give the node a parent
+    newNode->pParent = pNode;
 }
 
 /*
@@ -49,7 +70,9 @@ the passed node will be used. pLeft of the current node will point to the new no
 and pParent of the new node will point to the current node. 
 */
 template<typename T>
-void addRight(BNode<T> *pNode, BNode<T> *pToAdd) {
+void addRight(BNode<T> *pNode, BNode<T> *pAdd) {
+    pNode->pRight = pAdd;
+    pAdd->pParent = pNode;
 
 }
 
@@ -58,8 +81,19 @@ Takes a BNode as a parameter makes a copy of the tree. The return value is the
 newly copied tree. This is a recursive function.
 */
 template<typename T>
-BNode<T>* copyBTree(BNode<T> *pHead) {
-
+BNode<T>* copyBTree(BNode<T> *pNode) {
+    BNode<T> newTree = new (nothrow) BNode<T>(pNode->data);
+    if (newTree == nullptr)
+        throw "ERROR: could not allocate";
+    newTree->pLeft = copyBTree(pNode->pLeft);
+    if (newTree->pLeft != nullptr) {
+        newTree->pLeft->pParent = newTree;
+    }
+    newTree->pRight = copyBTree(pNode->pRight);
+    if (newTree->pRight != nullptr) {
+        newTree->pRight->pParent = newTree;
+    }
+    return newTree;
 }
 
 /*
@@ -67,8 +101,29 @@ Takes a BNode as a parameter and deletes all the children and itself.
 This is a recursive function.
 */
 template<typename T>
-void deleteBTree(BNode<T> *pHead) {
-
+void deleteBTree(BNode<T> *pNode) {
+    /* not for entire tree WOOPS
+    BNode<T> pIter = pHead; // make a new iter node that points to head at first
+    if (pIter->pLeft == nullptr && pIter->pLeft == nullptr) {
+        if (pIter->pParent == nullptr) {
+            delete pIter;
+            return;
+        }
+        BNode<T> pToDelete = pIter;
+        pIter = pIter->pParent;
+        delete pToDelete;
+        deleteBTree(pIter);
+    } else if(pIter->pLeft != nullptr) {
+        deleteBTree(p->Left);
+    } else {
+        deleteBTree(p->right);
+    }
+    */
+    if (pNode->pLeft != nullptr)
+        deleteBTree(pNode->pLeft);
+    if (pNode->pRight != nullptr)
+        deleteBTree(pNode->pRight);
+    delete pNode;
 }
 
 /*
