@@ -1,7 +1,9 @@
-#ifndef BNODE_H
-#define BNODE_H
+#ifndef bnode_h
+#define bnode_h
 
 #include <iostream>
+
+using nampespace std;
 
 template<typename T>
 struct BNode {
