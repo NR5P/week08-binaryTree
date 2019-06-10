@@ -141,7 +141,7 @@ std::ostream &operator<<(std::ostream &out, BNode<T> *t) {
 }
 
 template<typename T>
-T& displayLVR(std::ostream &out, const BNode<T> *pHead) {
+void displayLVR(std::ostream &out, const BNode<T> *pHead) {
     if (pHead == nullptr)
         return;
     displayLVR(pHead->pLeft);
