@@ -144,9 +144,9 @@ template<typename T>
 void displayLVR(std::ostream &out, const BNode<T> *pHead) {
     if (pHead == nullptr)
         return;
-    displayLVR(pHead->pLeft);
+    displayLVR(out, pHead->pLeft);
     cout << pHead->data << " ";
-    displayLVR(pHead->pRight);
+    displayLVR(out, pHead->pRight);
 }
 
 template<typename T>
