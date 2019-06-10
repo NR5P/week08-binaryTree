@@ -84,7 +84,7 @@ newly copied tree. This is a recursive function.
 */
 template<typename T>
 BNode<T>* copyBTree(const BNode<T> *pNode) {
-    BNode<T> newTree = new (nothrow) BNode<T>(pNode->data);
+    BNode<T> *newTree = new (nothrow) BNode<T>(pNode->data);
     if (newTree == nullptr)
         throw "ERROR: could not allocate";
     newTree->pLeft = copyBTree(pNode->pLeft);
