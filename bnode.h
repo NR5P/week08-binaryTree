@@ -2,6 +2,7 @@
 #define bnode_h
 
 #include <iostream>
+#include "bnode.h"
 
 using nampespace std;
 
