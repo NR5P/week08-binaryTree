@@ -156,7 +156,8 @@ int sizeBTree(const BNode<T> *pRoot) {
         return size;
     if (pRoot->pLeft != nullptr) {
         size += sizeBTree(pRoot->pLeft);
-    } else if (pRoot->pRight != nullptr) {
+    } 
+    if (pRoot->pRight != nullptr) {
         size += sizeBTree(pRoot->pRight);
     }
     return size;
