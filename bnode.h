@@ -153,7 +153,7 @@ template<typename T>
 int sizeBTree(const BNode<T> *pRoot) {
     int size = 1;
     if (!pRoot) 
-        return
+        return;
     if (pRoot->pLeft != nullptr) {
         size += sizeBTree(pRoot->pLeft);
     } else if (pRoot->pRight != nullptr) {
