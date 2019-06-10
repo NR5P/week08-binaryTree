@@ -12,7 +12,7 @@ struct BNode {
     BNode *pRight;
     BNode *pParent;
     BNode() : data(0), pLeft(nullptr), pRight(nullptr), pParent(nullptr) {} 
-    BNode(T &t) : data(t), pLeft(nullptr), pRight(nullptr), pParent(nullptr) {} 
+    BNode(T t) : data(t), pLeft(nullptr), pRight(nullptr), pParent(nullptr) {} 
 };
 
 /*
