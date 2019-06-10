@@ -13,6 +13,7 @@ struct BNode {
     BNode *pParent;
     BNode() : data(0), pLeft(nullptr), pRight(nullptr), pParent(nullptr) {} 
     BNode(T t) : data(t), pLeft(nullptr), pRight(nullptr), pParent(nullptr) {} 
+    BNode(T &t) : data(t), pLeft(nullptr), pRight(nullptr), pParent(nullptr) {} 
 };
 
 /*
@@ -83,7 +84,7 @@ Takes a BNode as a parameter makes a copy of the tree. The return value is the
 newly copied tree. This is a recursive function.
 */
 template<typename T>
-BNode<T>* copyBTree(BNode<T> *pNode) {
+BNode<T>* copyBTree(const BNode<T> *pNode) {
     BNode<T> newTree = new (nothrow) BNode<T>(pNode->data);
     if (newTree == nullptr)
         throw "ERROR: could not allocate";
