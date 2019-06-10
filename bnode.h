@@ -52,7 +52,6 @@ a new node will be allocated. pLeft of the current node will point to the new no
 and pParent of the new node will point to the current node. 
 */
 template<typename T>
-void addRight(const T &t, BNode<T> *pNode) {
 void addRight(BNode<T> *pNode, const T &t) {
     // create a new node to add
     BNode<T> *newNode = new (nothrow) BNode<T>(t);
