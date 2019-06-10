@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-using nampespace std;
+using namespace std;
 
 template<typename T>
 struct BNode {
