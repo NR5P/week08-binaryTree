@@ -133,7 +133,18 @@ A single space will be displayed after every element.
 */
 template<typename T>
 std::ostream &operator<<(std::ostream &out, BNode<T> *t) {
+    displayLVR(out, t);
 
+    return out;
+}
+
+template<typename T>
+T& displayLVR(std::ostream &out, const BNode<T> *pHead) {
+    if (pHead == nullptr)
+        return;
+    displayLVR(pHead->pLeft);
+    cout << pHead->data << " ";
+    displayLVR(pHead->pRight);
 }
 
 
