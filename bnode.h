@@ -95,7 +95,7 @@ BNode<T>* copyBTree(const BNode<T> *pNode) {
         newTree->pLeft->pParent = newTree;
     }
     newTree->pRight = copyBTree(pNode->pRight);
-    if (newTree->pRight copyBTree(pNode->pRight)) {
+    if (newTree->pRight = copyBTree(pNode->pRight)) {
         newTree->pRight->pParent = newTree;
     }
     return newTree;
