@@ -8,9 +8,9 @@ using namespace std;
 template<typename T>
 struct BNode {
     T data;
-    BNode *pLeft;
-    BNode *pRight;
-    BNode *pParent;
+    BNode<T> *pLeft;
+    BNode<T> *pRight;
+    BNode<T> *pParent;
     BNode() : data(0), pLeft(nullptr), pRight(nullptr), pParent(nullptr) {} 
     BNode(T t) : data(t), pLeft(nullptr), pRight(nullptr), pParent(nullptr) {} 
 };
@@ -84,15 +84,18 @@ newly copied tree. This is a recursive function.
 */
 template<typename T>
 BNode<T>* copyBTree(const BNode<T> *pNode) {
+    if (pNode == nullptr)
+        return nullptr;
+
     BNode<T> *newTree = new (nothrow) BNode<T>(pNode->data);
     if (newTree == nullptr)
         throw "ERROR: could not allocate";
     newTree->pLeft = copyBTree(pNode->pLeft);
-    if (newTree->pLeft != nullptr) {
+    if (newTree->pLeft = copyBTree(pNode->pLeft)) {
         newTree->pLeft->pParent = newTree;
     }
     newTree->pRight = copyBTree(pNode->pRight);
-    if (newTree->pRight != nullptr) {
+    if (newTree->pRight copyBTree(pNode->pRight)) {
         newTree->pRight->pParent = newTree;
     }
     return newTree;
@@ -135,19 +138,22 @@ A single space will be displayed after every element.
 */
 template<typename T>
 std::ostream &operator<<(std::ostream &out, BNode<T> *t) {
-    displayLVR(out, t);
-
+//    displayLVR(out, t);
+    out << t->pLeft << t->data << " " << t->pRight;
     return out;
 }
 
+/*
 template<typename T>
 void displayLVR(std::ostream &out, const BNode<T> *pHead) {
-    if (pHead == nullptr)
-        return;
+    if (pHead != nullptr) {
+
+    }
     displayLVR(out, pHead->pLeft);
     cout << pHead->data << " ";
     displayLVR(out, pHead->pRight);
 }
+*/
 
 template<typename T>
 int sizeBTree(const BNode<T> *pRoot) {
