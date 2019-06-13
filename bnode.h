@@ -43,6 +43,8 @@ and pParent of the new node will point to the current node.
 template<typename T>
 void addLeft(BNode<T> *pNode, BNode<T> *pAdd) {
     pNode->pLeft = pAdd;
+    if (pAdd == nullptr)
+        pAdd = new BNode<T>;
     pAdd->pParent = pNode;
 }
 
@@ -74,6 +76,8 @@ and pParent of the new node will point to the current node.
 template<typename T>
 void addRight(BNode<T> *pNode, BNode<T> *pAdd) {
     pNode->pRight = pAdd;
+    if (pAdd == nullptr)
+        pAdd = new BNode<T>;
     pAdd->pParent = pNode;
 
 }
