@@ -8,9 +8,9 @@ using namespace std;
 template<typename T>
 struct BNode {
     T data;
-    BNode *pLeft;
-    BNode *pRight;
-    BNode *pParent;
+    BNode<T> *pLeft;
+    BNode<T> *pRight;
+    BNode<T> *pParent;
     BNode() : data(0), pLeft(nullptr), pRight(nullptr), pParent(nullptr) {} 
     BNode(T t) : data(t), pLeft(nullptr), pRight(nullptr), pParent(nullptr) {} 
 };
