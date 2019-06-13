@@ -132,6 +132,7 @@ void deleteBTree(BNode<T> *pNode) {
         deleteBTree(pNode->pLeft);
     if (pNode->pRight != nullptr)
         deleteBTree(pNode->pRight);
+    pNode = nullptr;
     delete pNode;
 }
 
