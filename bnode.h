@@ -110,7 +110,7 @@ Takes a BNode as a parameter and deletes all the children and itself.
 This is a recursive function.
 */
 template<typename T>
-void deleteBTree(BNode<T> *pNode) {
+void deleteBTree(BNode<T> *&pNode) {
     /* not for entire tree WOOPS
     BNode<T> pIter = pHead; // make a new iter node that points to head at first
     if (pIter->pLeft == nullptr && pIter->pLeft == nullptr) {
