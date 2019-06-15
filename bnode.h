@@ -3,14 +3,16 @@
 
 #include <iostream>
 
+using namespace std;
+
 template<typename T>
 struct BNode {
     T data;
-    BNode *pLeft;
-    BNode *pRight;
-    BNode *pParent;
+    BNode<T> *pLeft;
+    BNode<T> *pRight;
+    BNode<T> *pParent;
     BNode() : data(0), pLeft(nullptr), pRight(nullptr), pParent(nullptr) {} 
-    BNode(T &t) : data(t), pLeft(nullptr), pRight(nullptr), pParent(nullptr) {} 
+    BNode(T t) : data(t), pLeft(nullptr), pRight(nullptr), pParent(nullptr) {} 
 };
 
 /*
@@ -19,7 +21,7 @@ a new node will be allocated. pLeft of the current node will point to the new no
 and pParent of the new node will point to the current node. 
 */
 template<typename T>
-void addLeft(const T &t, BNode<T> *pNode) {
+void addLeft(BNode<T> *pNode, const T &t) {
     // create a new node to add
     BNode<T> *newNode = new (nothrow) BNode<T>(t);
 
@@ -41,6 +43,8 @@ and pParent of the new node will point to the current node.
 template<typename T>
 void addLeft(BNode<T> *pNode, BNode<T> *pAdd) {
     pNode->pLeft = pAdd;
+    if (pAdd == nullptr)
+        pAdd = new BNode<T>;
     pAdd->pParent = pNode;
 }
 
@@ -50,7 +54,7 @@ a new node will be allocated. pLeft of the current node will point to the new no
 and pParent of the new node will point to the current node. 
 */
 template<typename T>
-void addRight(const T &t, BNode<T> *pNode) {
+void addRight(BNode<T> *pNode, const T &t) {
     // create a new node to add
     BNode<T> *newNode = new (nothrow) BNode<T>(t);
 
@@ -72,6 +76,8 @@ and pParent of the new node will point to the current node.
 template<typename T>
 void addRight(BNode<T> *pNode, BNode<T> *pAdd) {
     pNode->pRight = pAdd;
+    if (pAdd == nullptr)
+        pAdd = new BNode<T>;
     pAdd->pParent = pNode;
 
 }
@@ -81,16 +87,19 @@ Takes a BNode as a parameter makes a copy of the tree. The return value is the
 newly copied tree. This is a recursive function.
 */
 template<typename T>
-BNode<T>* copyBTree(BNode<T> *pNode) {
-    BNode<T> newTree = new (nothrow) BNode<T>(pNode->data);
+BNode<T>* copyBTree(const BNode<T> *pNode) {
+    if (pNode == nullptr)
+        return nullptr;
+
+    BNode<T> *newTree = new (nothrow) BNode<T>(pNode->data);
     if (newTree == nullptr)
         throw "ERROR: could not allocate";
-    newTree->pLeft = copyBTree(pNode->pLeft);
-    if (newTree->pLeft != nullptr) {
+    //newTree->pLeft = copyBTree(pNode->pLeft);
+    if (newTree->pLeft = copyBTree(pNode->pLeft)) {
         newTree->pLeft->pParent = newTree;
     }
-    newTree->pRight = copyBTree(pNode->pRight);
-    if (newTree->pRight != nullptr) {
+    //newTree->pRight = copyBTree(pNode->pRight);
+    if (newTree->pRight = copyBTree(pNode->pRight)) {
         newTree->pRight->pParent = newTree;
     }
     return newTree;
@@ -101,7 +110,7 @@ Takes a BNode as a parameter and deletes all the children and itself.
 This is a recursive function.
 */
 template<typename T>
-void deleteBTree(BNode<T> *pNode) {
+void deleteBTree(BNode<T> *&pNode) {
     /* not for entire tree WOOPS
     BNode<T> pIter = pHead; // make a new iter node that points to head at first
     if (pIter->pLeft == nullptr && pIter->pLeft == nullptr) {
@@ -123,6 +132,7 @@ void deleteBTree(BNode<T> *pNode) {
         deleteBTree(pNode->pLeft);
     if (pNode->pRight != nullptr)
         deleteBTree(pNode->pRight);
+    pNode = nullptr;
     delete pNode;
 }
 
@@ -133,9 +143,33 @@ A single space will be displayed after every element.
 */
 template<typename T>
 std::ostream &operator<<(std::ostream &out, BNode<T> *t) {
+    displayLVR(out, t);
 
+    return out;
 }
 
+template<typename T>
+void displayLVR(std::ostream &out, const BNode<T> *pHead) {
+    if (pHead == nullptr)
+        return;
+    displayLVR(out, pHead->pLeft);
+    cout << pHead->data << " ";
+    displayLVR(out, pHead->pRight);
+}
+
+template<typename T>
+int sizeBTree(const BNode<T> *pRoot) {
+    int size = 1;
+    if (!pRoot) 
+        return size;
+    if (pRoot->pLeft != nullptr) {
+        size += sizeBTree(pRoot->pLeft);
+    } 
+    if (pRoot->pRight != nullptr) {
+        size += sizeBTree(pRoot->pRight);
+    }
+    return size;
+}
 
 
 #endif
