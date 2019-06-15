@@ -61,11 +61,44 @@ private:
    NodeType *pRoot;
 };
 
-/*******************************************
- * HUFFMAN
- * Driver program to exercise the huffman generation code
- *******************************************/
-void huffman(const string &fileName)
+void getTwoLowest(std::vector<huffmanTree *> trees, huffmanTree *&lowest, huffmanTree *&secondLowest)
+{
+
+   for (std::vector<huffmanTree *>::iterator it = trees.begin(); it != trees.end(); ++it)
+   {
+      huffmanTree *p = *it;
+
+      if (secondLowest == nullptr || p->getValue() < secondLowest->getValue())
+      {
+         if (lowest == nullptr || p->getValue() < lowest->getValue())
+         {
+            huffmanTree *pOldLowest = lowest;
+            lowest = p;
+
+            if (pOldLowest != nullptr)
+            {
+               secondLowest = pOldLowest;
+            }
+         }
+         else
+         {
+            secondLowest = p;
+         }
+      }
+   }
+}
+
+void deleteTrees(std::vector<huffmanTree *> trees)
+{
+   while (trees.size() > 0)
+   {
+      huffmanTree *tree = trees[0];
+      delete tree;
+      trees.erase(trees.begin());
+   }
+}
+
+std::vector<huffmanTree *> readTreesFromFile(const string &fileName)
 {
    std::ifstream infile(fileName);
    std::string line;
@@ -83,17 +116,34 @@ void huffman(const string &fileName)
       huffmanTree *tree = new huffmanTree(word, frequency);
       trees.push_back(tree);
    }
+}
 
-   for (std::vector<huffmanTree *>::iterator it = trees.begin(); it != trees.end(); ++it)
-   {
-      huffmanTree *p = *it;
-      }
+/*******************************************
+ * HUFFMAN
+ * Driver program to exercise the huffman generation code
+ *******************************************/
+void huffman(const string &fileName)
+{
 
-   while (trees.size() > 0)
+   std::vector<huffmanTree *> trees = readTreesFromFile(fileName);
+
+   huffmanTree *pLowest;
+   huffmanTree *pSecondLowest;
+
+   while (trees.size() > 1)
    {
-      huffmanTree *tree = trees[0];
-      delete tree;
-      trees.erase(trees.begin());
+      getTwoLowest(trees, pLowest, pSecondLowest);
+
+      //TODO: now we have to combine the two lowest into a new tree, and remove
+      //the two from "trees", and add the new one. (or collapse one into the other)
+      //this needs to happen until there is only one tree left in trees.
+
+      //combining the trees might be tricky, because only "leaf" nodes are "real".
+      //probably the "huffmanTree.getValue" method isn't that useful here, because
+      //the value should be calculated from the leaves under it?
    }
-   return;
+
+   //TODO: print the results
+
+   deleteTrees(trees);
 }

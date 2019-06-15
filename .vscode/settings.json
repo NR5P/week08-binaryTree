@@ -28,6 +28,26 @@
         "iomanip": "cpp",
         "sstream": "cpp",
         "tuple": "cpp",
-        "utility": "cpp"
+        "utility": "cpp",
+        "cstddef": "cpp",
+        "cstring": "cpp",
+        "fstream": "cpp",
+        "ios": "cpp",
+        "memory": "cpp",
+        "string": "cpp",
+        "vector": "cpp",
+        "xfacet": "cpp",
+        "xiosbase": "cpp",
+        "xlocale": "cpp",
+        "xlocinfo": "cpp",
+        "xlocnum": "cpp",
+        "xmemory": "cpp",
+        "xmemory0": "cpp",
+        "xstddef": "cpp",
+        "xstring": "cpp",
+        "xtr1common": "cpp",
+        "xutility": "cpp",
+        "unordered_map": "cpp",
+        "optional": "cpp"
     }
 }
