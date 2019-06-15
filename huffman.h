@@ -12,6 +12,32 @@
 #define HUFFMAN_H
 
 #include <string>
+
+#include "pair.h"
+#include "vector.h"
+
 void huffman(const std::string & fileName);
+
+struct huffmanData
+{
+  string huffText;
+  float huffNum;
+};
+
+
+
+class Huffman
+{
+  public: 
+    
+    
+    
+  private:
+   
+  
+   
+};
+
+
 
 #endif // HUFFMAN_h
