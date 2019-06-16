@@ -1,13 +1,13 @@
 ###############################################################
 # Program:
 #     Assignment 08, Binary Tree
-#     Brother XXXXX, CS235
+#     Brother JonesL, CS235
 # Author:
-#     <your name here>
+#     Griffin Pope, Nathan Rigg, Dallen Cluff, Dan Worwood
 # Summary:
-#     <put a description here>
+#     Implementation of binary tree with Huffman Codes
 # Time:
-#     <how long did it take to complete this program>?
+#     20 hours
 ###############################################################
 
 ##############################################################
