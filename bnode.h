@@ -5,14 +5,15 @@
 
 using namespace std;
 
-template<typename T>
-struct BNode {
+template <typename T>
+struct BNode
+{
     T data;
     BNode<T> *pLeft;
     BNode<T> *pRight;
     BNode<T> *pParent;
-    BNode() : data(0), pLeft(nullptr), pRight(nullptr), pParent(nullptr) {} 
-    BNode(T t) : data(t), pLeft(nullptr), pRight(nullptr), pParent(nullptr) {} 
+    BNode() : pLeft(nullptr), pRight(nullptr), pParent(nullptr) {}
+    BNode(T t) : data(t), pLeft(nullptr), pRight(nullptr), pParent(nullptr) {}
 };
 
 /*
@@ -20,12 +21,13 @@ ads a node to the left of the current node. takes a template variable as a param
 a new node will be allocated. pLeft of the current node will point to the new node,
 and pParent of the new node will point to the current node. 
 */
-template<typename T>
-void addLeft(BNode<T> *pNode, const T &t) {
+template <typename T>
+void addLeft(BNode<T> *pNode, const T &t)
+{
     // create a new node to add
     BNode<T> *newNode = new (nothrow) BNode<T>(t);
 
-    if (newNode == nullptr) 
+    if (newNode == nullptr)
         throw "ERROR: unable to allocate";
 
     // put to left of the pnode
@@ -40,8 +42,9 @@ ads a node to the left of the current node. takes a BNode * as a parameter,
 the passed node will be used. pLeft of the current node will point to the new node,
 and pParent of the new node will point to the current node. 
 */
-template<typename T>
-void addLeft(BNode<T> *pNode, BNode<T> *pAdd) {
+template <typename T>
+void addLeft(BNode<T> *pNode, BNode<T> *pAdd)
+{
     pNode->pLeft = pAdd;
     if (pAdd == nullptr)
         pAdd = new BNode<T>;
@@ -53,12 +56,13 @@ ads a node to the right of the current node. takes a template variable as a para
 a new node will be allocated. pLeft of the current node will point to the new node,
 and pParent of the new node will point to the current node. 
 */
-template<typename T>
-void addRight(BNode<T> *pNode, const T &t) {
+template <typename T>
+void addRight(BNode<T> *pNode, const T &t)
+{
     // create a new node to add
     BNode<T> *newNode = new (nothrow) BNode<T>(t);
 
-    if (newNode == nullptr) 
+    if (newNode == nullptr)
         throw "ERROR: unable to allocate";
 
     // put to left of the pnode
@@ -73,21 +77,22 @@ ads a node to the right of the current node. takes a BNode * as a parameter,
 the passed node will be used. pLeft of the current node will point to the new node,
 and pParent of the new node will point to the current node. 
 */
-template<typename T>
-void addRight(BNode<T> *pNode, BNode<T> *pAdd) {
+template <typename T>
+void addRight(BNode<T> *pNode, BNode<T> *pAdd)
+{
     pNode->pRight = pAdd;
     if (pAdd == nullptr)
         pAdd = new BNode<T>;
     pAdd->pParent = pNode;
-
 }
 
 /*
 Takes a BNode as a parameter makes a copy of the tree. The return value is the 
 newly copied tree. This is a recursive function.
 */
-template<typename T>
-BNode<T>* copyBTree(const BNode<T> *pNode) {
+template <typename T>
+BNode<T> *copyBTree(const BNode<T> *pNode)
+{
     if (pNode == nullptr)
         return nullptr;
 
@@ -95,11 +100,13 @@ BNode<T>* copyBTree(const BNode<T> *pNode) {
     if (newTree == nullptr)
         throw "ERROR: could not allocate";
     //newTree->pLeft = copyBTree(pNode->pLeft);
-    if (newTree->pLeft = copyBTree(pNode->pLeft)) {
+    if (newTree->pLeft = copyBTree(pNode->pLeft))
+    {
         newTree->pLeft->pParent = newTree;
     }
     //newTree->pRight = copyBTree(pNode->pRight);
-    if (newTree->pRight = copyBTree(pNode->pRight)) {
+    if (newTree->pRight = copyBTree(pNode->pRight))
+    {
         newTree->pRight->pParent = newTree;
     }
     return newTree;
@@ -109,8 +116,9 @@ BNode<T>* copyBTree(const BNode<T> *pNode) {
 Takes a BNode as a parameter and deletes all the children and itself. 
 This is a recursive function.
 */
-template<typename T>
-void deleteBTree(BNode<T> *&pNode) {
+template <typename T>
+void deleteBTree(BNode<T> *&pNode)
+{
     /* not for entire tree WOOPS
     BNode<T> pIter = pHead; // make a new iter node that points to head at first
     if (pIter->pLeft == nullptr && pIter->pLeft == nullptr) {
@@ -141,15 +149,17 @@ Takes a constant BNode * as a parameter and displays the tree under
 the passed parameter. This is a recursive function traversing the tree in LVR order. 
 A single space will be displayed after every element.
 */
-template<typename T>
-std::ostream &operator<<(std::ostream &out, BNode<T> *t) {
+template <typename T>
+std::ostream &operator<<(std::ostream &out, BNode<T> *t)
+{
     displayLVR(out, t);
 
     return out;
 }
 
-template<typename T>
-void displayLVR(std::ostream &out, const BNode<T> *pHead) {
+template <typename T>
+void displayLVR(std::ostream &out, const BNode<T> *pHead)
+{
     if (pHead == nullptr)
         return;
     displayLVR(out, pHead->pLeft);
@@ -157,19 +167,21 @@ void displayLVR(std::ostream &out, const BNode<T> *pHead) {
     displayLVR(out, pHead->pRight);
 }
 
-template<typename T>
-int sizeBTree(const BNode<T> *pRoot) {
+template <typename T>
+int sizeBTree(const BNode<T> *pRoot)
+{
     int size = 1;
-    if (!pRoot) 
+    if (!pRoot)
         return size;
-    if (pRoot->pLeft != nullptr) {
+    if (pRoot->pLeft != nullptr)
+    {
         size += sizeBTree(pRoot->pLeft);
-    } 
-    if (pRoot->pRight != nullptr) {
+    }
+    if (pRoot->pRight != nullptr)
+    {
         size += sizeBTree(pRoot->pRight);
     }
     return size;
 }
-
 
 #endif
